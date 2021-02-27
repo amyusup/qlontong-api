@@ -6,13 +6,9 @@ module.exports = {
     try {
       const { limit, nama, orderby } = req.query;
       const newLimit = !isNaN(parseInt(limit)) ? parseInt(limit) : 25;
-      const newNamat = nama ? nama : "";
+      const newNama = nama ? nama : "";
       const newOrderBy = orderby ? orderby : "tanggal_input";
-      const produk = await ProdukModel.getProduk(
-        newLimit,
-        newNamat,
-        newOrderBy
-      );
+      const produk = await ProdukModel.getProduk(newLimit, newNama, newOrderBy);
       if (produk[0]) {
         response(res, 200, produk);
       } else {
