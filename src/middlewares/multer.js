@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const response = require("../helpers/response");
+const { response } = require("../helpers/response");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/images");
@@ -26,16 +26,16 @@ const upload = multer({ storage, limits, fileFilter });
 
 const uploadImg = {
   singleUpload: (req, res, next) => {
-    const singleUpload = upload.single("photo");
+    const singleUpload = upload.single("foto");
     singleUpload(req, res, (err) => {
       if (err) {
         if (err.code === `LIMIT_FIELD_VALUE`) {
-          response.failed(err, res);
+          response(res, 500, { message: err });
         } else {
-          response.failed(err, res);
+          response(res, 500, { message: err });
         }
       } else {
-        req.body.photo = !req.file
+        req.body.foto = !req.file
           ? req.file
           : `/public/image/${req.file.filename}`;
         next();
