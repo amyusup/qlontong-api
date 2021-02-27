@@ -13,7 +13,7 @@ module.exports = {
         newNamat,
         newOrderBy
       );
-      if (produk) {
+      if (produk[0]) {
         response(res, 200, produk);
       } else {
         response(res, 400, { message: "Produk belum tersedia" });
@@ -68,7 +68,6 @@ module.exports = {
         message: "Produk berhasil diubah",
       });
     } catch (e) {
-      console.log(e)
       response(res, 500, { message: e.message });
     }
   },
