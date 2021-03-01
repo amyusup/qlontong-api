@@ -7,8 +7,9 @@ module.exports = {
   login: async function (req, res) {
     try {
       const setData = req.body;
+      // console.log(setData)
       const pengguna = await authModels.cekPengguna(setData.email);
-      if (!pengguna[0]) response(res, 401, { message: "Email salah" });
+      if (!pengguna[0]) return response(res, 401, { message: "Email salah" });
       let cek = true;
       cek = bcrypt.compareSync(setData.password, pengguna[0].password);
       if (cek) {

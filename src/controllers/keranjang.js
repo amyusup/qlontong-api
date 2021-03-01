@@ -4,7 +4,8 @@ const { response } = require("../helpers/response");
 module.exports = {
   getKeranjang: async function (req, res) {
     try {
-      const { id } = req.params;
+      // const { id } = req.params;
+      const { id } = req.token;
       const Keranjang = await KeranjangModel.getKeranjang(id);
       if (Keranjang[0]) {
         response(res, 200, Keranjang);
@@ -17,14 +18,19 @@ module.exports = {
   },
   tambahKeranjang: async function (req, res) {
     try {
+      const {id} = req.token
       const setData = req.body;
+      setData.id_pembeli = id
+      setData.qyt = 1
+      // console.log(setData)
       const produk = await KeranjangModel.getProdukKeranjang(setData.id_produk);
+      // console.log(produk)
      
       if (produk[0]) {
          var keranjang = await KeranjangModel.ubahKeranjang(
-          produk[0].id,
+          produk[0].id_produk,
           setData.id_pembeli,
-          {qyt:produk[0].qyt+1}
+          {qyt:parseInt(produk[0].qyt)+parseInt(setData.qyt)}
         );
       } else {
          var keranjang = await KeranjangModel.tambahKeranjang(setData);
@@ -34,6 +40,7 @@ module.exports = {
         message: "Berhasil dimasukkan ke keranjang",
       });
     } catch (e) {
+      console.log(e)
       response(res, 500, { message: e.message });
     }
   },
