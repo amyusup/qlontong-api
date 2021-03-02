@@ -33,15 +33,28 @@ module.exports = {
   },
   tambahPesanan: async function (req, res) {
     try {
-      const {id} = req.token
+      const { id } = req.token;
       const setData = req.body;
-      setData.id_pembeli = id
+      setData.id_pembeli = id;
       const id_pesanan = await PesananModel.getLastIdPesanan();
       setData.kode_pesanan = "QLONTONG_" + id_pesanan[0].kode_pesanan;
       const pesanan = await PesananModel.tambahPesanan(setData);
       response(res, 200, {
         result: pesanan,
         message: "Pesanan berhasil di tambahkan",
+      });
+    } catch (e) {
+      response(res, 500, { message: e.message });
+    }
+  },
+  ubahPesanan: async function (req, res) {
+    try {
+      const { kode } = req.query;
+      const setData = req.body;
+      const pesanan = await PesananModel.ubahPesanan(kode, setData);
+      response(res, 200, {
+        result: pesanan,
+        message: "Pesanan berhasil di ubah",
       });
     } catch (e) {
       response(res, 500, { message: e.message });

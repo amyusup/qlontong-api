@@ -3,9 +3,9 @@ const penggunaController = require("../controllers/pengguna");
 const authJWT = require("../middlewares/auth");
 const uploadImg = require("../middlewares/multer");
 router
-  .get("/:id", penggunaController.getPenggunaById)
+  .get("/", authJWT.authentication, penggunaController.getPenggunaById)
   .patch(
-    "/:id",
+    "/",
     authJWT.authentication,
     uploadImg.singleUpload,
     penggunaController.UbahPengguna

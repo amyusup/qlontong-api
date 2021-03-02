@@ -4,9 +4,11 @@ const { response } = require("../helpers/response");
 module.exports = {
   getPenggunaById: async function (req, res) {
     try {
-      const { id } = req.params;
+      const { id } = req.token;
       const pengguna = await PenggunaModel.getPenggunaById(id);
       if (pengguna[0]) {
+        delete pengguna[0].id
+        delete pengguna[0].password
         response(res, 200, pengguna);
       } else {
         response(res, 400, { message: "Pengguna tidak ditemukan" });
@@ -18,7 +20,8 @@ module.exports = {
 
   UbahPengguna: async function (req, res) {
     try {
-      const { id } = req.params;
+      console.log(req.body)
+      const { id } = req.token;
       const setData = req.body;
       if (req.file) {
         setData.foto = req.file.filename;

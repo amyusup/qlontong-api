@@ -60,7 +60,7 @@ module.exports = {
   ubahPesanan: (kode, setData) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `UPDATE tb_pesanan SET ? WHERE kode_pesanan=${kode}`,
+        `UPDATE tb_pesanan SET ? WHERE kode_pesanan='${kode}'`,
         setData,
         (err, result) => {
           if (!err) {
