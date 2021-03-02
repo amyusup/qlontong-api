@@ -5,6 +5,11 @@ const uploadImg = require("../middlewares/multer");
 router
   .get("/", authJWT.authentication, penggunaController.getPenggunaById)
   .patch(
+    "/ubah-saldo/:id",
+    authJWT.authentication,
+    penggunaController.UbahSaldo
+  )
+  .patch(
     "/",
     authJWT.authentication,
     uploadImg.singleUpload,
