@@ -2,9 +2,10 @@ const db = require("../config/mysql");
 
 module.exports = {
   getPesanan: function (reverseRoles,newRoles,id, status) {
+    // SELECT a.id, a.kode_pesanan, a.id_pembeli, a.id_penjual, b.nama AS nama_penjual, a.id_produk, c.nama AS nama_produk, c.foto AS foto_produk, c.harga AS harga_produk, a.qyt,a.status, a.tgl FROM tb_pesanan a LEFT JOIN tb_pengguna b ON ${reverseRoles}=b.id LEFT JOIN tb_produk c ON a.id_produk=c.id WHERE ${newRoles}=${id} AND status='${status}' GROUP BY a.kode_pesanan
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT a.id, a.kode_pesanan, a.id_pembeli, a.id_penjual, b.nama AS nama_penjual, a.id_produk, c.nama AS nama_produk, c.foto AS foto_produk, c.harga AS harga_produk, a.qyt,a.status, a.tgl FROM tb_pesanan a LEFT JOIN tb_pengguna b ON ${reverseRoles}=b.id LEFT JOIN tb_produk c ON a.id_produk=c.id WHERE ${newRoles}=${id} AND status='${status}' GROUP BY a.kode_pesanan`,
+        `SELECT a.id, a.kode_pesanan, a.id_pembeli, a.id_penjual, b.nama AS nama_penjual, a.id_produk, c.nama AS nama_produk, c.foto AS foto_produk, c.harga AS harga_produk, a.qyt,a.status, a.tgl FROM tb_pesanan a LEFT JOIN tb_pengguna b ON ${reverseRoles}=b.id LEFT JOIN tb_produk c ON a.id_produk=c.id WHERE ${newRoles}=${id} AND status='${status}'`,
         (err, result) => {
           if (!err) {
             resolve(result);
