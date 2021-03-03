@@ -44,7 +44,13 @@ module.exports = {
       const setData = req.body;
       setData.id_pembeli = id;
       const id_pesanan = await PesananModel.getLastIdPesanan();
-      setData.kode_pesanan = "QLONTONG_" + id_pesanan[0].kode_pesanan;
+      // console.log(id_pesanan)
+      if(id_pesanan[0].kode_pesanan){
+        setData.kode_pesanan = "QLONTONG_" + id_pesanan[0].kode_pesanan;
+      }else{
+        setData.kode_pesanan = "QLONTONG_1"
+      }
+      
       const pesanan = await PesananModel.tambahPesanan(setData);
       response(res, 200, {
         result: pesanan,

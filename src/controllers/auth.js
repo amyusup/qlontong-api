@@ -43,7 +43,7 @@ module.exports = {
       const setData = req.body;
       const pengguna = await authModels.cekPengguna(setData.email);
       if (pengguna[0]) {
-        return response(res, 403, { message: "Email telah digunakan" });
+        return response(res, 400, { message: "Email telah digunakan" });
       }
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt);

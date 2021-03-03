@@ -21,3 +21,9 @@ app.listen( process.env.PORT || 8000, () => {
   console.log(`Server running on PORT ${ process.env.PORT || 8000 }`);
 });
 
+// PORT=8000
+// DB_HOST=localhost
+// DB_USER=root
+// DB_PASSWORD=
+// DB_NAME=qlontong
+// SECRET_KEY=d82c36f7c4f1f7eb30fa5bca9d17c772

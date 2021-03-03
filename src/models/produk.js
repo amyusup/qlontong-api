@@ -18,7 +18,7 @@ module.exports = {
   getProdukById: function (id) {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT * FROM tb_produk WHERE id='${id}'`,
+        `SELECT a.*, b.nama AS nama_penjual FROM tb_produk a LEFT JOIN tb_pengguna b ON a.id_penjual=b.id WHERE a.id='${id}'`,
         (err, result) => {
           if (!err) {
             resolve(result);

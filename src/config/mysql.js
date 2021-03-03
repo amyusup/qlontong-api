@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
     if(!err) {
-        console.log('MySQL Connected')
+        console.log(`MySQL Connected on ${process.env.DB_HOST}`)
     } else {
         console.log(err)
     }
