@@ -34,6 +34,11 @@ module.exports = {
   tambahProduk: async function (req, res) {
     try {
       const setData = req.body;
+      const {id, role} = req.token
+      if(role !==200){
+        return res.sendStatus(403);
+      }
+      setData.id_penjual = id
       if (req.file) {
         setData.foto = req.file.filename;
       } else {
@@ -44,6 +49,7 @@ module.exports = {
         result: produk,
         message: "Produk berhasil ditambahkan",
       });
+      
     } catch (e) {
       response(res, 500, { message: e.message });
     }
@@ -64,6 +70,7 @@ module.exports = {
         message: "Produk berhasil diubah",
       });
     } catch (e) {
+      console.log(e)
       response(res, 500, { message: e.message });
     }
   },

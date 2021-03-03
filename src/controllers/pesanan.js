@@ -6,7 +6,6 @@ module.exports = {
     try {
       // const { role } = req.params;
       const { id, role } = req.token;
-      console.log(role)
       const { status } = req.query;
       const newStatus = status ? status : "dikemas";
       const newRoles = role === 100 ? `a.id_pembeli` : `a.id_penjual`;
